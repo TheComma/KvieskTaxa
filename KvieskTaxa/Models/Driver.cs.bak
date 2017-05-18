@@ -1,0 +1,31 @@
+/**
+ * @(#) Driver.cs
+ */
+
+namespace RealizacijosModelis.Components.Model
+{
+	public class Driver : User
+	{
+		String state;
+		
+		Integer id;
+		
+		String name;
+		
+		Integer number_of_seats;
+		
+		Boolean child_seat;
+		
+		Boolean animals;
+		
+		Tariff Tariff;
+		
+		Call Call;
+		
+		Call AcceptedCall;
+		
+		Boolean smoking;
+		
+	}
+	
+}

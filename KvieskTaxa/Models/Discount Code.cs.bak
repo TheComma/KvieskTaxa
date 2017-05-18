@@ -1,0 +1,19 @@
+/**
+ * @(#) Discount Code.cs
+ */
+
+namespace RealizacijosModelis.Components.Model
+{
+	public class DiscountCode
+	{
+		Integer id;
+		
+		String code;
+		
+		Discount Discount;
+		
+		Client Client;
+		
+	}
+	
+}

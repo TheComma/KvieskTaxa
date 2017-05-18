@@ -1,0 +1,19 @@
+/**
+ * @(#) Client.cs
+ */
+
+namespace RealizacijosModelis.Components.Model
+{
+	public class Client : User
+	{
+		Integer id;
+		
+		String email;
+		
+		Call Call;
+		
+		DiscountCode DiscountCode;
+		
+	}
+	
+}

@@ -1,0 +1,25 @@
+/**
+ * @(#) Discount.cs
+ */
+
+namespace RealizacijosModelis.Components.Model
+{
+	public class Discount
+	{
+		Integer id;
+		
+		String title;
+		
+		String description;
+		
+		String discount_size;
+		
+		date valid_from;
+		
+		date valid_to;
+		
+		DiscountCode DiscountCode;
+		
+	}
+	
+}

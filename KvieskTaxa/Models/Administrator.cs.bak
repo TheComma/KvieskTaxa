@@ -1,0 +1,15 @@
+/**
+ * @(#) Administrator.cs
+ */
+
+namespace RealizacijosModelis.Components.Model
+{
+	public class Administrator : User
+	{
+		Integer id;
+		
+		String email;
+		
+	}
+	
+}

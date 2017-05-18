@@ -1,0 +1,49 @@
+/**
+ * @(#) Call.cs
+ */
+
+namespace RealizacijosModelis.Components.Model
+{
+	public class Call
+	{
+		Integer id;
+		
+		String from;
+		
+		String to;
+		
+		String state;
+		
+		Integer estimated_price;
+		
+		date send_time;
+		
+		date accept_time;
+		
+		date finish_time;
+		
+		date book_time;
+		
+		Integer passenger_count;
+		
+		Boolean child_seat;
+		
+		Boolean animals;
+		
+		Boolean smoking;
+		
+		String rating;
+		
+		String review;
+		
+		Client Client;
+		
+		Boolean baggage;
+		
+		Driver SentDriver;
+		
+		Driver AcceptedDriver;
+		
+	}
+	
+}
