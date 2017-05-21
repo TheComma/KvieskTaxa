@@ -17,8 +17,8 @@ namespace KvieskTaxa.Models
         public bool child_seat { get; set; }
         public bool animals { get; set; }
         public Tariff Tariff { get; set; }
-        public Call Call { get; set; }
-        public Call AcceptedCall { get; set; }
+        public ICollection<Call> Calls { get; set; }
+        public ICollection<Call> AcceptedCalls { get; set; }
         public bool smoking { get; set; }
 
     }

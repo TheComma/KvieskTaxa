@@ -27,8 +27,7 @@ namespace KvieskTaxa.Models
         public string review { get; set; }
         public Client Client { get; set; }
         public bool baggage { get; set; }
-        public Driver SentDriver { get; set; }
+        public ICollection<Driver> SentDrivers { get; set; }
         public Driver AcceptedDriver { get; set; }
-
     }
 }

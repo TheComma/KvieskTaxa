@@ -12,8 +12,7 @@ namespace KvieskTaxa.Models
     {
         public int id { get; set; }
         public string email { get; set; }
-        public Call Call { get; set; }
-        public DiscountCode DiscountCode { get; set; }
-
+        public ICollection<DiscountCode> DiscountCodes { get; set; }
+        public ICollection<Call> Calls { get; set; }
     }
 }

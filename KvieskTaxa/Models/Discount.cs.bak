@@ -1,25 +1,22 @@
 /**
  * @(#) Discount.cs
  */
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
-namespace RealizacijosModelis.Components.Model
+namespace KvieskTaxa.Models
 {
-	public class Discount
-	{
-		Integer id;
-		
-		String title;
-		
-		String description;
-		
-		String discount_size;
-		
-		date valid_from;
-		
-		date valid_to;
-		
-		DiscountCode DiscountCode;
-		
-	}
-	
+    public class Discount
+    {
+        public int id { get; set; }
+        public string title { get; set; }
+        public string description { get; set; }
+        public string discount_size { get; set; }
+        public DateTime valid_from { get; set; }
+        public DateTime valid_to { get; set; }
+        public DiscountCode DiscountCode { get; set; }
+
+    }
 }

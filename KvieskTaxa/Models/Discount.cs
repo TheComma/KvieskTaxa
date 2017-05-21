@@ -16,7 +16,6 @@ namespace KvieskTaxa.Models
         public string discount_size { get; set; }
         public DateTime valid_from { get; set; }
         public DateTime valid_to { get; set; }
-        public DiscountCode DiscountCode { get; set; }
-
+        public ICollection<DiscountCode> DiscountCodes { get; set; }
     }
 }
