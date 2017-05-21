@@ -3,7 +3,7 @@
  */
 using KvieskTaxa.Database.Models;
 using KvieskTaxa.Database;
-using System.Data.Entity;
+using System.Net.Mail;
 
 namespace KvieskTaxa.Areas.Administrator.Services
 {
@@ -20,7 +20,25 @@ namespace KvieskTaxa.Areas.Administrator.Services
 
         public void sendDiscountCodes(int id)
         {
-            DiscountCode code = dbContext.DiscountCodes.FirstOrDefault(x => x.Code == id);
+            Discount discount = dbContext.Discounts.FirstOrDefault(x => x.DiscountId == id);
+            foreach (DiscountCode code in discount.DiscountCodes)
+            {
+                KvieskTaxa.Database.Models.Client client = code.Client;
+                string message = generateEmailBody(discount.Description, code.Code);
+                MailMessage mail = new MailMessage("info@kviesktaxa.lt", client.Email, discount.Title, discount.Description);
+
+                MailService.sendMail(mail);
+            }
+        }
+
+        private string generateEmailBody(string description, string code)
+        {
+            string message = "Sveiki!";
+            message += "\n" + description;
+            message += "\nNuolaidos kodas: " + code;
+            message += "\n KvieskTaxa.lt";
+
+            return message;
         }
     }
 }
