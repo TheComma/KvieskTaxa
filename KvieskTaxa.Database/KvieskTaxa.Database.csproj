@@ -50,6 +50,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataModelContext.cs" />
+    <Compile Include="Migrations\201705211539497_init migration.cs" />
+    <Compile Include="Migrations\201705211539497_init migration.Designer.cs">
+      <DependentUpon>201705211539497_init migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Administrator.cs" />
+    <Compile Include="Models\Call.cs" />
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\Discount.cs" />
+    <Compile Include="Models\DiscountCode.cs" />
+    <Compile Include="Models\Driver.cs" />
+    <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\Tariff.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,7 +71,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <EmbeddedResource Include="Migrations\201705211539497_init migration.resx">
+      <DependentUpon>201705211539497_init migration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
