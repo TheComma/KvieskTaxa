@@ -19,6 +19,10 @@ namespace KvieskTaxa.Controllers
 
         public ActionResult Login()
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Administrator", new { area = "Administrator" });
+            }
             return View();
         }
 
