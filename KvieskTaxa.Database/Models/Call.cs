@@ -10,21 +10,25 @@ namespace KvieskTaxa.Database.Models
 		[Key]
         public int CallId { get; set; }
 
-        public string PickUp { get; set; }
+        public string PickUpCordinates { get; set; }
 
-        public string DropBy { get; set; }
+        public string PickUpLocation { get; set; }
 
-		public float Distance { get; set; }
+        public string DropByCordinates { get; set; }
+
+        public string DropByLocation { get; set; }
+
+		public float? Distance { get; set; }
 
         public int State { get; set; }
 
-        public decimal EstimatedPrice { get; set; }
+        public decimal? EstimatedPrice { get; set; }
 
         public DateTime SendTime { get; set; }
 
-        public DateTime AcceptTime { get; set; }
+        public DateTime? AcceptTime { get; set; }
 
-        public DateTime FinishTime { get; set; }
+        public DateTime? FinishTime { get; set; }
 
         public DateTime BookTime { get; set; }
 

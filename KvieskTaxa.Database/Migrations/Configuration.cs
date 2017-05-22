@@ -41,9 +41,7 @@ namespace KvieskTaxa.Database.Migrations
             driver.Driver = driverdata;
             client.Client = clientdata;
 
-            context.Users.Add(admin);
-            context.Users.Add(driver);
-            context.Users.Add(client);
+            context.Users.AddOrUpdate(admin, driver, client);
             context.SaveChanges();
         }
     }

@@ -9,7 +9,12 @@ namespace KvieskTaxa.Areas.Client.Controllers
     public class ClientController : Controller
     {
         // GET: Client/Client
-        public ActionResult Index()
+        public ActionResult IssueCall()
+        {
+            return View();
+        }
+
+        public ActionResult DriveProgress()
         {
             return View();
         }
