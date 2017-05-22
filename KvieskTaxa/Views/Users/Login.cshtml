@@ -10,14 +10,17 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
     <div>
         <fieldset>
 
             @Html.LabelFor(x => x.username,"Prisijungimo vardas")
-            @Html.TextBoxFor(x => x.username, new { @class = "form-control", id = "loginName" })
+            @Html.TextBoxFor(x => x.username, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.username)
 
             @Html.LabelFor(x => x.password, "Slaptažodis")
-            @Html.PasswordFor(x => x.password, new { @class = "form-control", id = "password" })
+            @Html.PasswordFor(x => x.password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.password)
 
             <br style="line-height: 10px" />
             <input type="submit" class="btn btn-info" value="Log in" />

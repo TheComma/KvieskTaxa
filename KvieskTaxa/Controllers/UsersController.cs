@@ -3,6 +3,8 @@ using KvieskTaxa.Database.Models;
 using KvieskTaxa.Database;
 using System.Linq;
 using System.Web.Security;
+using System.Web;
+using KvieskTaxa.Models;
 
 namespace KvieskTaxa.Controllers
 {
@@ -53,6 +55,45 @@ namespace KvieskTaxa.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Users");
+        }
+
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                User user = db.Users.FirstOrDefault(x => x.username == ticket.Name);
+                if (user != null)
+                {
+                    if (user.password == model.OldPassword)
+                    {
+                        user.password = model.ConfirmPassword;
+                        db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Logout");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Neteisingas senas vartotojo slaptažodis");
+                        return View(model);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Neautorizuotas prisijungimas");
+                    return View(model);
+                }
+            }
+            return View(model);
         }
     }
 }

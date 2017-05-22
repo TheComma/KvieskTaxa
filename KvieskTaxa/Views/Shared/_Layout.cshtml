@@ -21,6 +21,7 @@
                 <ul class="nav navbar-nav">
                     @if (Request.IsAuthenticated)
                     {
+                        <li>@Html.ActionLink("Keisti slaptažodį", "ChangePassword", "Users" , new { area = "" }, null) </li>
                         <li>@Html.ActionLink("Log off ", "Logout", "Users", new { area = "" }, null)</li>
                     }
                     else
