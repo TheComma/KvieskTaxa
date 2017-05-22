@@ -3,28 +3,29 @@
  */
 using System.Web.Mvc;
 using KvieskTaxa.Database;
+using System.Linq;
 
 namespace KvieskTaxa.Areas.Administrator.Controllers
 {
 	public class AdministratorController : Controller
 	{
-		//Services.IDiscountMailer DiscountMailer;
-		
+		Services.IDiscountMailer DiscountMailer;
 		private DataModelContext dbContext;
 
 		public AdministratorController()
 		{
 			dbContext = new DataModelContext();
-		}
+            DiscountMailer = new Services.DiscountMailer(new Services.MailService(), dbContext);
+        }
 
 		public ActionResult Index()
 		{
 			return View();
 		}
 
-		public void getReviews(  )
+		public ActionResult getReviews()
 		{
-			
+            return View(dbContext.Reviews.ToList());
 		}
 		
 		public void showDiscountForm(  )

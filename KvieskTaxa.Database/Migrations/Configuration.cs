@@ -26,7 +26,7 @@ namespace KvieskTaxa.Database.Migrations
             //    );
 
             AddUser(context);
-            
+            AddReviews(context);
         }
 
         private void AddUser(DataModelContext context)
@@ -45,6 +45,17 @@ namespace KvieskTaxa.Database.Migrations
             context.Users.Add(driver);
             context.Users.Add(client);
             context.SaveChanges();
+        }
+
+        private void AddReviews(DataModelContext context)
+        {
+            Review review1 = new Review() { ClientId = 3, DriverId = 2, Rating = 5, Description = "Labai gera taxi programele. Intuityvu ir inovatyvu." };
+            Review review2 = new Review() { ClientId = 3, DriverId = 2, Rating = 2, Description = "Kelione kainavo brangiau nei prognozavo." };
+            Review review3 = new Review() { ClientId = 3, DriverId = 2, Rating = 1, Description = "Tai kad cia niekas neveikia.." };
+
+            context.Reviews.Add(review1);
+            context.Reviews.Add(review2);
+            context.Reviews.Add(review3);
         }
     }
 }
