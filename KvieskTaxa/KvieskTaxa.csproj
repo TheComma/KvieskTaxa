@@ -178,6 +178,9 @@
     <Content Include="Areas\Administrator\Views\Administrator\GetTariffs.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\CreateTariff.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\editTariff.cshtml" />
+    <Content Include="Areas\Administrator\Views\Administrator\GetDiscounts.cshtml" />
+    <Content Include="Areas\Administrator\Views\Administrator\CreateDiscount.cshtml" />
+    <Content Include="Areas\Administrator\Views\Administrator\EditDiscount.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

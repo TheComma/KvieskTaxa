@@ -1,0 +1,59 @@
+﻿@model IEnumerable<KvieskTaxa.Database.Models.Discount>
+
+@{
+    ViewBag.Title = "Nuolaidos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Nuolaidos</h2>
+
+<p>
+    @Html.ActionLink("Kurti Nuolaida", "CreateDiscount", "Administrator")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Pavadinimas
+        </th>
+        <th>
+            Aprasymas
+        </th>
+        <th>
+            Nuolaidos dydis
+        </th>
+        <th>
+            Galioja nuo
+        </th>
+        <th>
+            Galioja iki
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiscountSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValidFrom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValidTo)
+        </td>
+        <td>
+            @Html.ActionLink("Generuoti nuolaidos kodus", "GenerateDiscountCodes", new { controller = "Administrator", area = "Administrator", id = item.DiscountId }) |
+            @Html.ActionLink("Siusti nuolaida", "SendDiscount", new { controller = "Administrator", area = "Administrator", id = item.DiscountId }) |
+            @Html.ActionLink("Redaguoti", "EditDiscount", new { controller = "Administrator", area = "Administrator", id = item.DiscountId }) |
+            @Html.ActionLink("Trinti", "DeleteDiscount", new { controller = "Administrator", area = "Administrator",  id = item.DiscountId })
+        </td>
+    </tr>
+}
+
+</table>

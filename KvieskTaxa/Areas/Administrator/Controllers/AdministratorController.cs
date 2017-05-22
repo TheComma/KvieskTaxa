@@ -7,6 +7,7 @@ using KvieskTaxa.Database.Models;
 using KvieskTaxa.Controllers.Base;
 using System.Data.Entity;
 using System.Linq;
+using System.Collections.Generic;
 using System.Net;
 
 namespace KvieskTaxa.Areas.Administrator.Controllers
@@ -15,8 +16,9 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
     {
 		Services.IDiscountMailer DiscountMailer;
 		private DataModelContext dbContext;
+        private static System.Random random = new System.Random();
 
-		public AdministratorController()
+        public AdministratorController()
 		{
 			dbContext = new DataModelContext();
             DiscountMailer = new Services.DiscountMailer(new Services.MailService(), dbContext);
@@ -33,26 +35,116 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
 		{
             return View(dbContext.Reviews.ToList());
 		}
-		
-		public void showDiscountForm(  )
+
+        [Authorize]
+        public ActionResult GetDiscounts()
+        {
+            return View(dbContext.Discounts.ToList());
+        }
+
+        [Authorize]
+        public ActionResult CreateDiscount()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult CreateDiscount(Discount discount)
+        {
+            if (ModelState.IsValid)
+            {
+                dbContext.Discounts.Add(discount);
+                dbContext.SaveChanges();
+                return RedirectToAction("GetDiscounts", "Administrator");
+            }
+            return View(discount);
+        }
+
+        [Authorize]
+        public ActionResult EditDiscount(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Discount discount = dbContext.Discounts.Find(id);
+            if (discount == null)
+            {
+                return HttpNotFound();
+            }
+            return View(discount);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditDiscount(Discount discount)
+        {
+            if (ModelState.IsValid)
+            {
+                dbContext.Entry(discount).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                return RedirectToAction("GetDiscounts", "Administrator");
+            }
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult DeleteDiscount(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Discount discount = dbContext.Discounts.Find(id);
+            if (discount == null)
+            {
+                return HttpNotFound();
+            }
+            dbContext.Discounts.Remove(discount);
+            dbContext.SaveChanges();
+
+            return RedirectToAction("GetDiscounts", "Administrator");
+        }
+
+        [Authorize]
+        public ActionResult GenerateDiscountCodes(int? id)
 		{
-			
-		}
-		
-		public void saveDiscount(  )
-		{
-			
-		}
-		
-		public void validateDiscount(  )
-		{
-			
-		}
-		
-		public void generateDiscountCode(  )
-		{
-			
-		}
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Discount discount = dbContext.Discounts.Find(id);
+            if (discount == null)
+            {
+                return HttpNotFound();
+            }
+
+            List<Database.Models.Client> clients = dbContext.Clients.ToList();
+
+            foreach(Database.Models.Client client in clients)
+            {
+                string code = generateDiscountCode();
+                DiscountCode discountCode = new DiscountCode() { ClientId=client.ClientId, DiscountId=discount.DiscountId, Code=code };
+                dbContext.DiscountCodes.Add(discountCode);
+            }
+
+            dbContext.SaveChanges();
+
+            return RedirectToAction("GetDiscounts", "Administrator");
+        }
+
+        public ActionResult SendDiscount(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            DiscountMailer.sendDiscountCodes((int) id);
+
+            return RedirectToAction("GetDiscounts", "Administrator");
+        }
 
         [Authorize]
         public ActionResult GetTariffs()
@@ -126,7 +218,7 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
             dbContext.Tariffs.Remove(tariff);
             dbContext.SaveChanges();
 
-            return RedirectToAction("GetTariffs");
+            return RedirectToAction("GetTariffs", "Administrator");
         }
 
         public void editTransportationSettings(  )
@@ -151,9 +243,15 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
 		
 		public void validateDriver(  )
 		{
-			
-		}
-		
-	}
+
+        }
+
+        private string generateDiscountCode()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, 10)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+    }
 	
 }

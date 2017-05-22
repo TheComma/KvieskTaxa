@@ -1,0 +1,73 @@
+﻿@model KvieskTaxa.Database.Models.Discount
+
+@{
+    ViewBag.Title = "Kurti Nuolaida";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kurti Nuolaida</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Nuolaida</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Title">Pavadinimas</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Description">Aprasymas</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="DiscountSize">Nuolaidos dydis</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DiscountSize, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DiscountSize, "", new { @class = "text-danger" })
+                </div>
+</div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="ValidFrom">Galioja nuo</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ValidFrom, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ValidFrom, "", new { @class = "text-danger" })
+                </div>
+</div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="ValidTo">Galioja iki</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ValidTo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ValidTo, "", new { @class = "text-danger" })
+                </div>
+</div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Kurti" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Atgal i sarasa", "GetDiscounts", "Administrator")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
