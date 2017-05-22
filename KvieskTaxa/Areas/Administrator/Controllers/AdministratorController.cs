@@ -3,6 +3,7 @@
  */
 using System.Web.Mvc;
 using KvieskTaxa.Database;
+using KvieskTaxa.Database.Models;
 using System.Linq;
 
 namespace KvieskTaxa.Areas.Administrator.Controllers
@@ -47,8 +48,32 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
 		{
 			
 		}
-		
-		public void editTariff(  )
+
+        public ActionResult GetTariffs()
+        {
+            return View(dbContext.Tariffs.ToList());
+        }
+
+        public ActionResult CreateTariff()
+        {
+            ViewBag.DriverId = new SelectList(dbContext.Drivers.ToList(), "DriverId", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateTariff(Tariff tariff)
+        {
+            if (ModelState.IsValid)
+            {
+                dbContext.Tariffs.Add(tariff);
+                dbContext.SaveChanges();
+                return RedirectToAction("GetTariffs", "Administrator");
+            }
+            ViewBag.DriverId = new SelectList(dbContext.Drivers.ToList(), "DriverId", "Name");
+            return View(tariff);
+        }
+
+        public void editTariff(  )
 		{
 			
 		}

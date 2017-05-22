@@ -8,14 +8,14 @@ namespace KvieskTaxa.Database.Models
     {
 		#region Properties
 
-		[Key,ForeignKey("Driver")]
+		[Key]
         public int TariffId { get; set; }
 
         public decimal EntryPrice { get; set; }
 
         public decimal KilometersPrice { get; set; }
 		
-		public int? DriverId { get; set; }
+		public int DriverId { get; set; }
 
         public DateTime ValidFrom { get; set; }
 

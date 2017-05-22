@@ -1,32 +1,32 @@
 ﻿@model IEnumerable<KvieskTaxa.Database.Models.Review>
 
 @{
-    ViewBag.Title = "getReviews";
+    ViewBag.Title = "Atsiliepimai";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Reviews</h2>
+<h2>Atsiliepimai</h2>
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Client.Email)
+            Klientas
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Driver.Name)
+            Vairuotojas
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            Atsiliepimas
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Rating)
+            Vertinimas
         </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Client.Email)
+            @Html.DisplayFor(modelItem => item.Client.User.username)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Driver.Name)
