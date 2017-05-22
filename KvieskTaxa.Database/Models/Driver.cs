@@ -25,7 +25,7 @@ namespace KvieskTaxa.Database.Models
 
 		public virtual User User { get; set; }
 
-		public virtual Tariff Tariff { get; set; }
+		public virtual ICollection<Tariff> Tariffs { get; set; }
 
 		public virtual ICollection<Call> Calls { get; set; }
 

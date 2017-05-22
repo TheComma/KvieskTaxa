@@ -62,6 +62,10 @@
     <Compile Include="Migrations\201705221734152_Call refractor.Designer.cs">
       <DependentUpon>201705221734152_Call refractor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705221951458_driver-tariff relation.cs" />
+    <Compile Include="Migrations\201705221951458_driver-tariff relation.Designer.cs">
+      <DependentUpon>201705221951458_driver-tariff relation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Call.cs" />
@@ -87,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705221734152_Call refractor.resx">
       <DependentUpon>201705221734152_Call refractor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705221951458_driver-tariff relation.resx">
+      <DependentUpon>201705221951458_driver-tariff relation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

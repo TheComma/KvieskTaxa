@@ -137,11 +137,15 @@
     <Compile Include="Areas\Client\Controllers\ClientController.cs" />
     <Compile Include="Areas\Driver\Controllers\DriverController.cs" />
     <Compile Include="Areas\Driver\DriverAreaRegistration.cs" />
+    <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Data\Users\IUserPrincipal.cs" />
+    <Compile Include="Data\Users\UserPrincipal.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ChangePasswordModel.cs" />
+    <Compile Include="Models\UserWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +173,10 @@
     <Content Include="Areas\Administrator\Views\Administrator\getReviews.cshtml" />
     <Content Include="Areas\Driver\Views\web.config" />
     <Content Include="Areas\Driver\Views\Driver\showCalls.cshtml" />
+    <Content Include="Areas\Driver\Views\Driver.cshtml" />
+    <Content Include="Areas\Administrator\Views\Administrator\getReviews.cshtml" />
+    <Content Include="Areas\Administrator\Views\Administrator\GetTariffs.cshtml" />
+    <Content Include="Areas\Administrator\Views\Administrator\CreateTariff.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
