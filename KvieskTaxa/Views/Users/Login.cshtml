@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model KvieskTaxa.Database.Models.User
+
+<h2>Login</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <fieldset>
+
+            @Html.LabelFor(x => x.username,"Prisijungimo vardas")
+            @Html.TextBoxFor(x => x.username, new { @class = "form-control", id = "loginName" })
+
+            @Html.LabelFor(x => x.password, "Slaptažodis")
+            @Html.PasswordFor(x => x.password, new { @class = "form-control", id = "password" })
+
+            <br style="line-height: 10px" />
+            <input type="submit" class="btn btn-info" value="Log in" />
+        </fieldset>
+    </div>
+}
+

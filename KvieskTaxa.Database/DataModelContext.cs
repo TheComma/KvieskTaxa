@@ -3,10 +3,10 @@ using KvieskTaxa.Database.Models;
 
 namespace KvieskTaxa.Database
 {
-    public class DataModelContext : DbContext
-    {
-        public DataModelContext() : base("name=DefaultConnection")
-        { }
+	public class DataModelContext : DbContext
+	{
+		public DataModelContext() : base("name=DefaultConnection")
+		{ }
 
 		#region Properties
 
