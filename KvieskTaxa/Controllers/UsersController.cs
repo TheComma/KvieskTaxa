@@ -3,12 +3,15 @@ using KvieskTaxa.Database.Models;
 using KvieskTaxa.Database;
 using System.Linq;
 using System.Web.Security;
-using System.Web;
 using KvieskTaxa.Models;
+using KvieskTaxa.Controllers.Base;
+using System.Web.Script.Serialization;
+using System;
+using System.Web;
 
 namespace KvieskTaxa.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
         private DataModelContext db;
 
@@ -36,7 +39,7 @@ namespace KvieskTaxa.Controllers
                 {
                     if (user.password == model.password)
                     {
-                        FormsAuthentication.SetAuthCookie(user.username, true);
+                        AuthenticationData(user);
                         if (user.Administrator != null)
                             return RedirectToAction("Index", "Administrator", new { area = "Administrator" });
                         else if(user.Driver != null)
@@ -73,9 +76,7 @@ namespace KvieskTaxa.Controllers
         {
             if (ModelState.IsValid)
             {
-                HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
-                User user = db.Users.FirstOrDefault(x => x.username == ticket.Name);
+                User user = db.Users.FirstOrDefault(x => x.username == User.Username);
                 if (user != null)
                 {
                     if (user.password == model.OldPassword)
@@ -98,6 +99,30 @@ namespace KvieskTaxa.Controllers
                 }
             }
             return View(model);
+        }
+
+        private void AuthenticationData(User user)
+        {
+            UserWrapper usw = new UserWrapper();
+            usw.UserId = user.UserId;
+            usw.username = user.username;
+            usw.Status = user.Status;
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            string userData = serializer.Serialize(usw);
+
+            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+            1,
+            user.username,
+            DateTime.Now,
+            DateTime.Now.AddMinutes(20),
+            false,
+            userData);
+
+            string encTicket = FormsAuthentication.Encrypt(authTicket);
+            HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+            Response.Cookies.Add(faCookie);
         }
     }
 }
