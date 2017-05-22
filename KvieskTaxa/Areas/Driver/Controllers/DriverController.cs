@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace KvieskTaxa.Areas.Driver.Controllers
 {
-    public class DriverController
+    public class DriverController : Controller
     {
-        public void showCalls()
+        public ActionResult showCalls()
         {
-
+            return View();
         }
-        public void openCallInfo(){
+        public void openCallInfo()
+        {
 
         }
         public void changeDriverState()
