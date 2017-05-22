@@ -48,8 +48,8 @@
             @Html.DisplayFor(modelItem => item.ValidTo)
         </td>
         <td>
-            @Html.ActionLink("Redaguoti", "editTariff", "Administrator", new { id=item.TariffId }) |
-            @Html.ActionLink("Istrinti", "DeleteTariff", "Administrator", new { id=item.TariffId })
+            @Html.ActionLink("Redaguoti", "editTariff", new { controller = "Administrator", area = "Administrator", id=item.TariffId }) |
+            @Html.ActionLink("Istrinti", "DeleteTariff", new { controller = "Administrator", area = "Administrator", id =item.TariffId })
         </td>
     </tr>
 }
