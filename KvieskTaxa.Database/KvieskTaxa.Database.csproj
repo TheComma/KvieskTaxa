@@ -54,6 +54,14 @@
     <Compile Include="Migrations\201705211539497_init migration.Designer.cs">
       <DependentUpon>201705211539497_init migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705221726207_Call edit.cs" />
+    <Compile Include="Migrations\201705221726207_Call edit.Designer.cs">
+      <DependentUpon>201705221726207_Call edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705221734152_Call refractor.cs" />
+    <Compile Include="Migrations\201705221734152_Call refractor.Designer.cs">
+      <DependentUpon>201705221734152_Call refractor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Call.cs" />
@@ -73,6 +81,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705211539497_init migration.resx">
       <DependentUpon>201705211539497_init migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705221726207_Call edit.resx">
+      <DependentUpon>201705221726207_Call edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705221734152_Call refractor.resx">
+      <DependentUpon>201705221734152_Call refractor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
