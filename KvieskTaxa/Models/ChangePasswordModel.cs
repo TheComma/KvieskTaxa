@@ -18,7 +18,7 @@ namespace KvieskTaxa.Models
 
         [Required(ErrorMessage = "Būtina įvesti naują slaptažodį")]
         [DataType(DataType.Password)]
-        [StringLength(100, ErrorMessage = "{0} turi būti bent {2} simbolių ilgio.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} turi būti bent {2} simbolių ilgio.", MinimumLength = 4)]
         public string NewPassword { get; set; }
 
         [Required(ErrorMessage = "Būtina pakartotinai įvesti naują slaptažodį")]

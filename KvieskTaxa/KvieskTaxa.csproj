@@ -135,11 +135,15 @@
     <Compile Include="Areas\Client\Controllers\ClientController.cs" />
     <Compile Include="Areas\Driver\Controllers\DriverController.cs" />
     <Compile Include="Areas\Driver\DriverAreaRegistration.cs" />
+    <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Data\Users\IUserPrincipal.cs" />
+    <Compile Include="Data\Users\UserPrincipal.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ChangePasswordModel.cs" />
+    <Compile Include="Models\UserWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -163,11 +167,8 @@
     <Content Include="Areas\Administrator\Views\web.config" />
     <Content Include="Areas\Administrator\Views\Administrator\Index.cshtml" />
     <Content Include="Areas\Client\Views\Client\Index.cshtml" />
-<<<<<<< HEAD
     <Content Include="Areas\Driver\Views\Driver.cshtml" />
-=======
     <Content Include="Areas\Administrator\Views\Administrator\getReviews.cshtml" />
->>>>>>> a59df425b9fbf730a7d011d74c8c70c9df81d1d5
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
