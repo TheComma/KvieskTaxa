@@ -8,7 +8,7 @@
 <h2>Tarifai</h2>
 
 <p>
-    @Html.ActionLink("Kurti nauja", "CreateTariff", "Administrator")
+    @Html.ActionLink("Kurti naują", "CreateTariff", "Administrator")
 </p>
 <table class="table">
     <tr>
@@ -16,7 +16,7 @@
             Vairuotojas
         </th>
         <th>
-            Isedimo kaina
+            Įsėdimo kaina
         </th>
         <th>
             Kilometro kaina
@@ -49,7 +49,7 @@
         </td>
         <td>
             @Html.ActionLink("Redaguoti", "editTariff", new { controller = "Administrator", area = "Administrator", id=item.TariffId }) |
-            @Html.ActionLink("Istrinti", "DeleteTariff", new { controller = "Administrator", area = "Administrator", id =item.TariffId })
+            @Html.ActionLink("Ištrinti", "DeleteTariff", new { controller = "Administrator", area = "Administrator", id =item.TariffId })
         </td>
     </tr>
 }

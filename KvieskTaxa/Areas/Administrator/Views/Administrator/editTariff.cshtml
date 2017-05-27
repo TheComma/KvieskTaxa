@@ -1,11 +1,11 @@
 ﻿@model KvieskTaxa.Database.Models.Tariff
 
 @{
-    ViewBag.Title = "Redaguoti Tarifa";
+    ViewBag.Title = "Redaguoti Tarifą";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Redaguoti Tarifa</h2>
+<h2>Redaguoti Tarifą</h2>
 
 
 @using (Html.BeginForm())
@@ -27,7 +27,7 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2" for="EntryPrice">Isedimo kaina</label>
+            <label class="control-label col-md-2" for="EntryPrice">Įsėdimo kaina</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.EntryPrice, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EntryPrice, "", new { @class = "text-danger" })
@@ -67,7 +67,7 @@
 }
 
 <div>
-    @Html.ActionLink("Atgal i sarasa", "GetTariffs", "Administrator")
+    @Html.ActionLink("Atgal į sąrašą", "GetTariffs", "Administrator")
 </div>
 
 @section Scripts {

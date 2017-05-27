@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Kurti Nuolaida</h2>
+<h2>Kurti Nuolaidą</h2>
 
 
 @using (Html.BeginForm()) 
@@ -25,7 +25,7 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2" for="Description">Aprasymas</label>
+            <label class="control-label col-md-2" for="Description">Aprašymas</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
@@ -65,7 +65,7 @@
 }
 
 <div>
-    @Html.ActionLink("Atgal i sarasa", "GetDiscounts", "Administrator")
+    @Html.ActionLink("Atgal į sąrasšą", "GetDiscounts", "Administrator")
 </div>
 
 @section Scripts {

@@ -58,6 +58,7 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
                 dbContext.SaveChanges();
                 return RedirectToAction("GetDiscounts", "Administrator");
             }
+
             return View(discount);
         }
 
@@ -73,6 +74,7 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(discount);
         }
 
@@ -86,7 +88,8 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
                 dbContext.SaveChanges();
                 return RedirectToAction("GetDiscounts", "Administrator");
             }
-            return View();
+
+            return View(discount);
         }
 
         [Authorize]
@@ -200,7 +203,7 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
                 return RedirectToAction("GetTariffs", "Administrator");
             }
             ViewBag.DriverId = new SelectList(dbContext.Drivers.ToList(), "DriverId", "Name");
-            return View();
+            return View(tariff);
         }
 
         [Authorize]
@@ -221,29 +224,118 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
             return RedirectToAction("GetTariffs", "Administrator");
         }
 
-        public void editTransportationSettings(  )
+        [Authorize]
+        public ActionResult editTransportationSettings(int? id)
 		{
-			
-		}
-		
-		public void saveTransportationSettings(  )
-		{
-			
-		}
-		
-		public void editDriver(  )
-		{
-			
-		}
-		
-		public void saveDriver(  )
-		{
-			
-		}
-		
-		public void validateDriver(  )
-		{
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Database.Models.Driver driver = dbContext.Drivers.Find(id);
+            if (driver == null)
+            {
+                return HttpNotFound();
+            }
 
+            return View(driver);
+		}
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult editTransportationSettings(Database.Models.Driver driver)
+        {
+            if (ModelState.IsValid)
+            {
+                dbContext.Entry(driver).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                return RedirectToAction("GetDrivers", "Administrator");
+            }
+
+            return View(driver);
+        }
+
+        [Authorize]
+        public ActionResult GetDrivers()
+        {
+            return View(dbContext.Drivers.ToList());
+        }
+
+        [Authorize]
+        public ActionResult CreateDriver()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult CreateDriver(Database.Models.Driver driver)
+        {
+            if (ModelState.IsValid)
+            {
+                driver.User.CreateDate = System.DateTime.Now;
+                driver.User.Status = 2;
+                //dbContext.Users.Add(driver.User);
+                dbContext.Drivers.Add(driver);
+                dbContext.SaveChanges();
+                return RedirectToAction("GetDrivers", "Administrator");
+            }
+
+            return View(driver);
+        }
+
+        [Authorize]
+        public ActionResult editDriver(int? id)
+		{
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Database.Models.Driver driver = dbContext.Drivers.Find(id);
+            if (driver == null)
+            {
+                return HttpNotFound();
+            }
+            driver.User.password = "";
+
+            return View(driver);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult editDriver(Database.Models.Driver driver)
+        {
+            if (ModelState.IsValid)
+            {
+                Database.Models.Driver oldDriver = dbContext.Drivers.Find(driver.DriverId);
+                if (driver.User.password.Length <= 0)
+                {
+                    driver.User.password = oldDriver.User.password;
+                }
+
+                dbContext.Entry(driver).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                return RedirectToAction("GetDrivers", "Administrator");
+            }
+
+            return View(driver);
+        }
+
+        [Authorize]
+        public ActionResult DeleteDriver(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Database.Models.Driver driver = dbContext.Drivers.Find(id);
+            if (driver == null)
+            {
+                return HttpNotFound();
+            }
+            dbContext.Drivers.Remove(driver);
+            dbContext.SaveChanges();
+
+            return RedirectToAction("GetDrivers", "Administrator");
         }
 
         private string generateDiscountCode()
