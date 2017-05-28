@@ -1,12 +1,13 @@
 ﻿@{
-    ViewBag.Title = "Admin";
+    ViewBag.Title = "Adminnistratoriaus panelė";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-<h2>Adminnistratoriaus panele</h2>
+<h2>Adminnistratoriaus panelė</h2>
 <ul>
     <li>@Html.ActionLink("Atsiliepimai", "getReviews", "Administrator")</li>
     <li>@Html.ActionLink("Tarifai", "GetTariffs", "Administrator")</li>
     <li>@Html.ActionLink("Nuolaidos", "GetDiscounts", "Administrator")</li>
+    <li>@Html.ActionLink("Vairuotojai", "GetDrivers", "Administrator")</li>
 </ul>

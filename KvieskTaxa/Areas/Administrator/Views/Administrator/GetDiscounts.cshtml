@@ -16,7 +16,7 @@
             Pavadinimas
         </th>
         <th>
-            Aprasymas
+            Aprašymas
         </th>
         <th>
             Nuolaidos dydis
@@ -49,7 +49,7 @@
         </td>
         <td>
             @Html.ActionLink("Generuoti nuolaidos kodus", "GenerateDiscountCodes", new { controller = "Administrator", area = "Administrator", id = item.DiscountId }) |
-            @Html.ActionLink("Siusti nuolaida", "SendDiscount", new { controller = "Administrator", area = "Administrator", id = item.DiscountId }) |
+            @Html.ActionLink("Siųsti nuolaidą", "SendDiscount", new { controller = "Administrator", area = "Administrator", id = item.DiscountId }) |
             @Html.ActionLink("Redaguoti", "EditDiscount", new { controller = "Administrator", area = "Administrator", id = item.DiscountId }) |
             @Html.ActionLink("Trinti", "DeleteDiscount", new { controller = "Administrator", area = "Administrator",  id = item.DiscountId })
         </td>

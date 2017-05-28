@@ -182,6 +182,10 @@
     <Content Include="Areas\Administrator\Views\Administrator\EditDiscount.cshtml" />
     <Content Include="Areas\Driver\Views\Driver\Index.cshtml" />
     <Content Include="Areas\Driver\Views\Driver\openCallInfo.cshtml" />
+    <Content Include="Areas\Administrator\Views\Administrator\GetDrivers.cshtml" />
+    <Content Include="Areas\Administrator\Views\Administrator\CreateDriver.cshtml" />
+    <Content Include="Areas\Administrator\Views\Administrator\editDriver.cshtml" />
+    <Content Include="Areas\Administrator\Views\Administrator\editTransportationSettings.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
