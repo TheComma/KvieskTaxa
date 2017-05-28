@@ -44,33 +44,35 @@ namespace KvieskTaxa.Areas.Driver.Controllers
             return View(call);
         }
         [Authorize]
-        public void changeDriverState(int id)
+        public ActionResult changeDriverState(int stateId)
         {
-
-            if (id == null)
-            {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            //Driver driver = dbContext.Drivers.Find(id);
+            var driver = dbContext.Drivers.SingleOrDefault(d => d.DriverId == User.UserId);
+            driver.State = stateId;
+            dbContext.SaveChanges();
+            return RedirectToAction("Index");
         }
-        [HttpPost, ActionName("Edit")]
+        //[HttpPost, ActionName("Edit")]
         [Authorize]
         public ActionResult acceptCall(int id)
         {
-
+            var model = new CallDriver();
+            model.Calls = dbContext.Calls.ToList();
+            model.Drivers = dbContext.Drivers.ToList();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Call call = dbContext.Calls.Find(id);
+
+            var driver = dbContext.Drivers.SingleOrDefault(d => d.DriverId == User.UserId);
             if (call == null)
             {
                 return HttpNotFound();
             }
-
+            driver.State = 2;
             call.State = 2;
             call.AcceptTime = DateTime.Now;
-            //call.DriverId = dbContext.Use
+            call.DriverId = User.UserId;
             dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
