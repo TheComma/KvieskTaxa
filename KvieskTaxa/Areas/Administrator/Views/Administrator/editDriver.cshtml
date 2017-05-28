@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Redaguoti vairuotoją";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Redaguoti vairuotoją</h2>
@@ -13,7 +13,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Driver</h4>
+        <h4>Vairuotojas</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.DriverId)

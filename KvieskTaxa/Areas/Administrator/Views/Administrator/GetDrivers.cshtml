@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Vairuotojai";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Vairuotojai</h2>
@@ -54,7 +54,7 @@
             @Html.DisplayFor(modelItem => item.IsSmoking)
         </td>
         <td>
-            @Html.ActionLink("Keisti vežimo sąlygas", "editTransportationSettings", new { controller = "Administrator", area = "Administrator", id = item.DriverId })
+            @Html.ActionLink("Keisti vežimo sąlygas", "editTransportationSettings", new { controller = "Administrator", area = "Administrator", id = item.DriverId }) |
             @Html.ActionLink("Redaguoti", "editDriver", new { controller = "Administrator", area = "Administrator", id = item.DriverId }) |
             @Html.ActionLink("Trinti", "DeleteDriver", new { controller = "Administrator", area = "Administrator", id = item.DriverId })
         </td>

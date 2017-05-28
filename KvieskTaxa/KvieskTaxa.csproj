@@ -173,7 +173,6 @@
     <Content Include="Areas\Administrator\Views\Administrator\getReviews.cshtml" />
     <Content Include="Areas\Driver\Views\web.config" />
     <Content Include="Areas\Driver\Views\Driver.cshtml" />
-    <Content Include="Areas\Administrator\Views\Administrator\getReviews.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\GetTariffs.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\CreateTariff.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\editTariff.cshtml" />
@@ -186,6 +185,7 @@
     <Content Include="Areas\Administrator\Views\Administrator\CreateDriver.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\editDriver.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\editTransportationSettings.cshtml" />
+    <Content Include="Areas\Administrator\Views\Shared\_Layout.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
