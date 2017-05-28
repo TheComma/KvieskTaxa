@@ -172,7 +172,6 @@
     <Content Include="Areas\Driver\Views\Driver\Driver.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\getReviews.cshtml" />
     <Content Include="Areas\Driver\Views\web.config" />
-    <Content Include="Areas\Driver\Views\Driver\showCalls.cshtml" />
     <Content Include="Areas\Driver\Views\Driver.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\getReviews.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\GetTariffs.cshtml" />
@@ -181,6 +180,8 @@
     <Content Include="Areas\Administrator\Views\Administrator\GetDiscounts.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\CreateDiscount.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\EditDiscount.cshtml" />
+    <Content Include="Areas\Driver\Views\Driver\Index.cshtml" />
+    <Content Include="Areas\Driver\Views\Driver\openCallInfo.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

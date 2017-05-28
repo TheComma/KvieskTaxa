@@ -1,0 +1,50 @@
+﻿@model KvieskTaxa.Database.Models.CallDriver
+@{
+    ViewBag.Title = "Iškvietimų sąrašas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Iškvietimų sąrašas</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Klientas
+        </th>
+        <th>
+            Būsena
+        </th>
+        <th>
+            Atstumas
+        </th>
+        <th>
+            Išsiuntimo data
+        </th>
+        <th>
+            Paėmimo data
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Calls)
+    {
+        <tr style="cursor: pointer;" onclick="window.location='Driver/openCallInfo/'+ @Html.DisplayFor(modelItem => item.CallId)">
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.User.username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Distance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SendTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookTime)
+            </td>
+        </tr>
+    }
+
+</table>
+

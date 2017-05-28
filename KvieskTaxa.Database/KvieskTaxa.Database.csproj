@@ -69,6 +69,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Call.cs" />
+    <Compile Include="Models\CallDriver.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Discount.cs" />
     <Compile Include="Models\DiscountCode.cs" />

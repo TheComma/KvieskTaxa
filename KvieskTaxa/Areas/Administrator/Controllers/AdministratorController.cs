@@ -60,7 +60,7 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
             }
             return View(discount);
         }
-
+       
         [Authorize]
         public ActionResult EditDiscount(int? id)
         {

@@ -1,0 +1,91 @@
+﻿@model KvieskTaxa.Database.Models.Call
+@{
+    ViewBag.Title = "Iškvietimo informacija";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Iškvietimo informacija</h2>
+
+@if (@Model.Client != null)
+{
+    <p>Klientas:  @Model.Client.User.username</p>
+}
+@if (@Model.PickUpCordinates != null)
+{
+    <p> Paėmimo kordinatės: @Model.PickUpCordinates</p>
+}
+@if (@Model.PickUpLocation != null)
+{
+    <p>Paėmimo vieta: @Model.PickUpLocation</p>
+}
+@if (@Model.DropByCordinates != null)
+{
+    <p>Išleidimo koordinatės:  @Model.DropByCordinates</p>
+}
+@if (@Model.DropByLocation != null)
+{
+    <p>Išleidimo vieta: @Model.DropByLocation</p>
+}
+@if (@Model.Distance != null)
+{
+    <p>Kelionės atstumas: @Model.Distance</p>
+}
+@if (@Model.State != null)
+{
+    <p>Būsena: @Model.State</p>
+}
+@if (@Model.EstimatedPrice != null)
+{
+    <p>Numatoma kaina: @Model.EstimatedPrice</p>
+}
+@if (@Model.SendTime != null)
+{
+    <p>Užsakymo data: @Model.SendTime</p>
+}
+@if (@Model.AcceptTime != null)
+{
+    <p>Priėmimo data: @Model.AcceptTime</p>
+}
+@if (@Model.FinishTime != null)
+{
+    <p>Pabaigimo data: @Model.FinishTime</p>
+}
+@if (@Model.BookTime != null)
+{
+    <p>Paėmimo data: @Model.BookTime</p>
+}
+@if (@Model.Passangers != null)
+{
+    <p>Keleivių kiekis: @Model.Passangers</p>
+}
+@if (@Model.IsChildSeat != null)
+{
+    <p>Vaiko kėdutė: @Model.IsChildSeat</p>
+}
+@if (@Model.IsAnimals != null)
+{
+    <p>Gyvūnai: @Model.IsAnimals.ToString()</p>
+}
+@if (@Model.IsSmoking != null)
+{
+    <p>Rūkymas: @Model.IsSmoking.ToString()</p>
+}
+@if (@Model.IsBaggage != null)
+{
+    <p>Bagažas: @Model.IsBaggage.ToString()</p>
+}
+@if (@Model.Driver != null)
+{
+    <p>Priskirtas vairuotojas: @Model.Driver.User.username</p>
+}
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <button class="btn btn-default" onclick="location.href='@Url.Action("acceptCall", "DriverController")'">Priimti</button>
+        @Html.ActionLink("Priimti iškvietimą", "acceptCall", new { controller = "Driver", area = "Driver", id = Model.CallId}, new { @class = "btn btn-success" })
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Atgal i sarasa", "Index", "Driver")
+</div>
