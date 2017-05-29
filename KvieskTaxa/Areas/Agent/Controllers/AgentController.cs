@@ -74,7 +74,7 @@ namespace KvieskTaxa.Areas.Agent.Controllers
 
         public bool IsDriverAvailable()
         {
-            if (db.Drivers.Where(x => x.State == 0).Count() > 0)
+            if (db.Drivers.Where(x => x.State == 2).Count() > 0)
                 return true;
             else
                 return false;

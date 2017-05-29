@@ -1,10 +1,10 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KvieskTaxa.Database.Models
 {
-	public class Driver
+	public class Driver: IValidatableObject
 	{
 		#region Properties
 
@@ -35,6 +35,14 @@ namespace KvieskTaxa.Database.Models
 
 		public virtual ICollection<Review> Reviews { get; set; }
 
-		#endregion
-	}
+        #endregion
+
+        public System.Collections.Generic.IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Seats <= 0)
+            {
+                yield return new ValidationResult("Vairuotojas turi galėti vežti bent 1 keleivį");
+            }
+        }
+    }
 }

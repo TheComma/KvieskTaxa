@@ -1,18 +1,66 @@
 ﻿
 @{
-    ViewBag.Title = "Client Iškvietimas";
-    Layout = "_Layout.cshtml";
+    ViewBag.Title = "Adminnistratoriaus panelė";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @model KvieskTaxa.Database.Models.Call
-
 <legend>Taksi Kvietimas</legend>
-
+<script>
+      var labels = 'AB';
+      var labelIndex = 0;
+      var markerCount = 0;
+      var map;
+      var markers = [];
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 54.902816, lng: 23.918591 },
+          zoom: 12
+        });
+        google.maps.event.addListener(map, 'click', function (event) {
+            if (markerCount < 2) {
+                addMarker(event.latLng, map);
+            } else {
+                setMapOnAll(null);
+                markerCount = 0;
+            }
+        });
+      }
+      function setMapOnAll(map) {
+          for (var i = 0; i < markers.length; i++) {
+              markers[i].setMap(map);
+          }
+      }
+      function addMarker(location, map) {
+          var marker = new google.maps.Marker({
+              position: location,
+              label: labels[labelIndex++ % labels.length],
+              map: map
+          });
+          if (markerCount == 0) {
+              document.getElementById("posLat").setAttribute("value", marker.position.lat().toFixed(4));
+              document.getElementById("posLng").setAttribute("value", marker.position.lng().toFixed(4));
+          } else if (markerCount == 1) {
+              document.getElementById("destLat").setAttribute("value", marker.position.lat().toFixed(4));
+              document.getElementById("destLng").setAttribute("value", marker.position.lng().toFixed(4));
+          }
+          markerCount++;
+          markers.push(marker);
+      }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfs-PFFdGpNByBb9L-fvdQImZScJGD-fk&callback=initMap"
+        async defer></script>
+<div id="map" style="height:300px"></div>
 <div align="center" class="issue-call">
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         <div>
             <fieldset>
+                <input hidden name="posLat" id="posLat" value="0" />
+                <input hidden name="posLng" id="posLng" value="0"/>
+                <input hidden name="destLat" id="destLat" value="0"/>
+                <input hidden name="destLng" id="destLng" value="0"/>
                 @Html.LabelFor(x => x.Passangers, "Keleivių skaičius")
                 @Html.TextBoxFor(x => x.Passangers, new { @class = "form-control" })
                 @Html.ValidationMessageFor(x => x.Passangers)
