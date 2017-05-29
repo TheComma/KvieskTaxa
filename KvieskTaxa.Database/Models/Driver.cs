@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KvieskTaxa.Database.Models
 {
-    public class Driver
-    {
+	public class Driver
+	{
 		#region Properties
 
 		[Key, ForeignKey("User")]
@@ -13,15 +13,19 @@ namespace KvieskTaxa.Database.Models
 
 		public int State { get; set; }
 
-        public string Name { get; set; }
+		public string Name { get; set; }
 
-        public int Seats { get; set; }
+		public int Seats { get; set; }
 
-        public bool IsChildSeat { get; set; }
+		public bool IsChildSeat { get; set; }
 
-        public bool IsAnimals { get; set; }
+		public bool IsAnimals { get; set; }
 
-        public bool IsSmoking { get; set; }
+		public bool IsSmoking { get; set; }
+
+		public string LastLatitude { get; set; }
+
+		public string LastLongitude { get; set; }
 
 		public virtual User User { get; set; }
 

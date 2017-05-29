@@ -13,337 +13,337 @@ using System.Net;
 namespace KvieskTaxa.Areas.Administrator.Controllers
 {
 	public class AdministratorController : BaseController
-    {
+	{
 		Services.IDiscountMailer DiscountMailer;
 		private DataModelContext dbContext;
-        private static System.Random random = new System.Random();
+		private static System.Random random = new System.Random();
 
-        public AdministratorController()
+		public AdministratorController()
 		{
 			dbContext = new DataModelContext();
-            DiscountMailer = new Services.DiscountMailer(new Services.MailService(), dbContext);
-        }
+			DiscountMailer = new Services.DiscountMailer(new Services.MailService(), dbContext);
+		}
 
-        [Authorize]
+		[Authorize]
 		public ActionResult Index()
 		{
 			return View();
 		}
 
-        [Authorize]
-        public ActionResult getReviews()
+		[Authorize]
+		public ActionResult getReviews()
 		{
-            return View(dbContext.Reviews.ToList());
+			return View(dbContext.Reviews.ToList());
 		}
 
-        [Authorize]
-        public ActionResult GetDiscounts()
-        {
-            return View(dbContext.Discounts.ToList());
-        }
-
-        [Authorize]
-        public ActionResult CreateDiscount()
-        {
-            return View();
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult CreateDiscount(Discount discount)
-        {
-            if (ModelState.IsValid)
-            {
-                dbContext.Discounts.Add(discount);
-                dbContext.SaveChanges();
-                return RedirectToAction("GetDiscounts", "Administrator");
-            }
-
-            return View(discount);
-        }
-       
-        [Authorize]
-        public ActionResult EditDiscount(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Discount discount = dbContext.Discounts.Find(id);
-            if (discount == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(discount);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult EditDiscount(Discount discount)
-        {
-            if (ModelState.IsValid)
-            {
-                dbContext.Entry(discount).State = EntityState.Modified;
-                dbContext.SaveChanges();
-                return RedirectToAction("GetDiscounts", "Administrator");
-            }
-
-            return View(discount);
-        }
-
-        [Authorize]
-        public ActionResult DeleteDiscount(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Discount discount = dbContext.Discounts.Find(id);
-            if (discount == null)
-            {
-                return HttpNotFound();
-            }
-            dbContext.Discounts.Remove(discount);
-            dbContext.SaveChanges();
-
-            return RedirectToAction("GetDiscounts", "Administrator");
-        }
-
-        [Authorize]
-        public ActionResult GenerateDiscountCodes(int? id)
+		[Authorize]
+		public ActionResult GetDiscounts()
 		{
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Discount discount = dbContext.Discounts.Find(id);
-            if (discount == null)
-            {
-                return HttpNotFound();
-            }
-
-            List<Database.Models.Client> clients = dbContext.Clients.ToList();
-
-            foreach(Database.Models.Client client in clients)
-            {
-                string code = generateDiscountCode();
-                DiscountCode discountCode = new DiscountCode() { ClientId=client.ClientId, DiscountId=discount.DiscountId, Code=code };
-                dbContext.DiscountCodes.Add(discountCode);
-            }
-
-            dbContext.SaveChanges();
-
-            return RedirectToAction("GetDiscounts", "Administrator");
-        }
-
-        public ActionResult SendDiscount(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            DiscountMailer.sendDiscountCodes((int) id);
-
-            return RedirectToAction("GetDiscounts", "Administrator");
-        }
-
-        [Authorize]
-        public ActionResult GetTariffs()
-        {
-            return View(dbContext.Tariffs.ToList());
-        }
-
-        [Authorize]
-        public ActionResult CreateTariff()
-        {
-            ViewBag.DriverId = new SelectList(dbContext.Drivers.ToList(), "DriverId", "Name");
-            return View();
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult CreateTariff(Tariff tariff)
-        {
-            if (ModelState.IsValid)
-            {
-                dbContext.Tariffs.Add(tariff);
-                dbContext.SaveChanges();
-                return RedirectToAction("GetTariffs", "Administrator");
-            }
-            ViewBag.DriverId = new SelectList(dbContext.Drivers.ToList(), "DriverId", "Name");
-            return View(tariff);
-        }
-
-        [Authorize]
-        public ActionResult editTariff(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tariff tariff = dbContext.Tariffs.Find(id);
-            if (tariff == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.DriverId = new SelectList(dbContext.Drivers.ToList(), "DriverId", "Name");
-            return View(tariff);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult editTariff(Tariff tariff)
-        {
-            if (ModelState.IsValid)
-            {
-                dbContext.Entry(tariff).State = EntityState.Modified;
-                dbContext.SaveChanges();
-                return RedirectToAction("GetTariffs", "Administrator");
-            }
-            ViewBag.DriverId = new SelectList(dbContext.Drivers.ToList(), "DriverId", "Name");
-            return View(tariff);
-        }
-
-        [Authorize]
-        public ActionResult DeleteTariff(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tariff tariff = dbContext.Tariffs.Find(id);
-            if (tariff == null)
-            {
-                return HttpNotFound();
-            }
-            dbContext.Tariffs.Remove(tariff);
-            dbContext.SaveChanges();
-
-            return RedirectToAction("GetTariffs", "Administrator");
-        }
-
-        [Authorize]
-        public ActionResult editTransportationSettings(int? id)
-		{
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Database.Models.Driver driver = dbContext.Drivers.Find(id);
-            if (driver == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(driver);
+			return View(dbContext.Discounts.ToList());
 		}
 
-        [Authorize]
-        [HttpPost]
-        public ActionResult editTransportationSettings(Database.Models.Driver driver)
-        {
-            if (ModelState.IsValid)
-            {
-                dbContext.Entry(driver).State = EntityState.Modified;
-                dbContext.SaveChanges();
-                return RedirectToAction("GetDrivers", "Administrator");
-            }
-
-            return View(driver);
-        }
-
-        [Authorize]
-        public ActionResult GetDrivers()
-        {
-            return View(dbContext.Drivers.ToList());
-        }
-
-        [Authorize]
-        public ActionResult CreateDriver()
-        {
-            return View();
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult CreateDriver(Database.Models.Driver driver)
-        {
-            if (ModelState.IsValid)
-            {
-                driver.User.CreateDate = System.DateTime.Now;
-                driver.User.Status = 2;
-                //dbContext.Users.Add(driver.User);
-                dbContext.Drivers.Add(driver);
-                dbContext.SaveChanges();
-                return RedirectToAction("GetDrivers", "Administrator");
-            }
-
-            return View(driver);
-        }
-
-        [Authorize]
-        public ActionResult editDriver(int? id)
+		[Authorize]
+		public ActionResult CreateDiscount()
 		{
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Database.Models.Driver driver = dbContext.Drivers.Find(id);
-            if (driver == null)
-            {
-                return HttpNotFound();
-            }
-            driver.User.password = "";
+			return View();
+		}
 
-            return View(driver);
-        }
+		[Authorize]
+		[HttpPost]
+		public ActionResult CreateDiscount(Discount discount)
+		{
+			if (ModelState.IsValid)
+			{
+				dbContext.Discounts.Add(discount);
+				dbContext.SaveChanges();
+				return RedirectToAction("GetDiscounts", "Administrator");
+			}
 
-        [Authorize]
-        [HttpPost]
-        public ActionResult editDriver(Database.Models.Driver driver)
-        {
-            if (ModelState.IsValid)
-            {
-                Database.Models.Driver oldDriver = dbContext.Drivers.Find(driver.DriverId);
-                if (driver.User.password.Length <= 0)
-                {
-                    driver.User.password = oldDriver.User.password;
-                }
+			return View(discount);
+		}
+	   
+		[Authorize]
+		public ActionResult EditDiscount(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Discount discount = dbContext.Discounts.Find(id);
+			if (discount == null)
+			{
+				return HttpNotFound();
+			}
 
-                dbContext.Entry(driver).State = EntityState.Modified;
-                dbContext.SaveChanges();
-                return RedirectToAction("GetDrivers", "Administrator");
-            }
+			return View(discount);
+		}
 
-            return View(driver);
-        }
+		[Authorize]
+		[HttpPost]
+		public ActionResult EditDiscount(Discount discount)
+		{
+			if (ModelState.IsValid)
+			{
+				dbContext.Entry(discount).State = EntityState.Modified;
+				dbContext.SaveChanges();
+				return RedirectToAction("GetDiscounts", "Administrator");
+			}
 
-        [Authorize]
-        public ActionResult DeleteDriver(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Database.Models.Driver driver = dbContext.Drivers.Find(id);
-            if (driver == null)
-            {
-                return HttpNotFound();
-            }
-            dbContext.Drivers.Remove(driver);
-            dbContext.SaveChanges();
+			return View(discount);
+		}
 
-            return RedirectToAction("GetDrivers", "Administrator");
-        }
+		[Authorize]
+		public ActionResult DeleteDiscount(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Discount discount = dbContext.Discounts.Find(id);
+			if (discount == null)
+			{
+				return HttpNotFound();
+			}
+			dbContext.Discounts.Remove(discount);
+			dbContext.SaveChanges();
 
-        private string generateDiscountCode()
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, 10)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
-    }
+			return RedirectToAction("GetDiscounts", "Administrator");
+		}
+
+		[Authorize]
+		public ActionResult GenerateDiscountCodes(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Discount discount = dbContext.Discounts.Find(id);
+			if (discount == null)
+			{
+				return HttpNotFound();
+			}
+
+			List<Database.Models.Client> clients = dbContext.Clients.ToList();
+
+			foreach(Database.Models.Client client in clients)
+			{
+				string code = generateDiscountCode();
+				DiscountCode discountCode = new DiscountCode() { ClientId=client.ClientId, DiscountId=discount.DiscountId, Code=code };
+				dbContext.DiscountCodes.Add(discountCode);
+			}
+
+			dbContext.SaveChanges();
+
+			return RedirectToAction("GetDiscounts", "Administrator");
+		}
+
+		public ActionResult SendDiscount(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+
+			DiscountMailer.sendDiscountCodes((int) id);
+
+			return RedirectToAction("GetDiscounts", "Administrator");
+		}
+
+		[Authorize]
+		public ActionResult GetTariffs()
+		{
+			return View(dbContext.Tariffs.ToList());
+		}
+
+		[Authorize]
+		public ActionResult CreateTariff()
+		{
+			ViewBag.DriverId = new SelectList(dbContext.Drivers.ToList(), "DriverId", "Name");
+			return View();
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult CreateTariff(Tariff tariff)
+		{
+			if (ModelState.IsValid)
+			{
+				dbContext.Tariffs.Add(tariff);
+				dbContext.SaveChanges();
+				return RedirectToAction("GetTariffs", "Administrator");
+			}
+			ViewBag.DriverId = new SelectList(dbContext.Drivers.ToList(), "DriverId", "Name");
+			return View(tariff);
+		}
+
+		[Authorize]
+		public ActionResult editTariff(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Tariff tariff = dbContext.Tariffs.Find(id);
+			if (tariff == null)
+			{
+				return HttpNotFound();
+			}
+			ViewBag.DriverId = new SelectList(dbContext.Drivers.ToList(), "DriverId", "Name");
+			return View(tariff);
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult editTariff(Tariff tariff)
+		{
+			if (ModelState.IsValid)
+			{
+				dbContext.Entry(tariff).State = EntityState.Modified;
+				dbContext.SaveChanges();
+				return RedirectToAction("GetTariffs", "Administrator");
+			}
+			ViewBag.DriverId = new SelectList(dbContext.Drivers.ToList(), "DriverId", "Name");
+			return View(tariff);
+		}
+
+		[Authorize]
+		public ActionResult DeleteTariff(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Tariff tariff = dbContext.Tariffs.Find(id);
+			if (tariff == null)
+			{
+				return HttpNotFound();
+			}
+			dbContext.Tariffs.Remove(tariff);
+			dbContext.SaveChanges();
+
+			return RedirectToAction("GetTariffs", "Administrator");
+		}
+
+		[Authorize]
+		public ActionResult editTransportationSettings(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Database.Models.Driver driver = dbContext.Drivers.Find(id);
+			if (driver == null)
+			{
+				return HttpNotFound();
+			}
+
+			return View(driver);
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult editTransportationSettings(Database.Models.Driver driver)
+		{
+			if (ModelState.IsValid)
+			{
+				dbContext.Entry(driver).State = EntityState.Modified;
+				dbContext.SaveChanges();
+				return RedirectToAction("GetDrivers", "Administrator");
+			}
+
+			return View(driver);
+		}
+
+		[Authorize]
+		public ActionResult GetDrivers()
+		{
+			return View(dbContext.Drivers.ToList());
+		}
+
+		[Authorize]
+		public ActionResult CreateDriver()
+		{
+			return View();
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult CreateDriver(Database.Models.Driver driver)
+		{
+			if (ModelState.IsValid)
+			{
+				driver.User.CreateDate = System.DateTime.Now;
+				driver.User.Status = 2;
+				//dbContext.Users.Add(driver.User);
+				dbContext.Drivers.Add(driver);
+				dbContext.SaveChanges();
+				return RedirectToAction("GetDrivers", "Administrator");
+			}
+
+			return View(driver);
+		}
+
+		[Authorize]
+		public ActionResult editDriver(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Database.Models.Driver driver = dbContext.Drivers.Find(id);
+			if (driver == null)
+			{
+				return HttpNotFound();
+			}
+			driver.User.password = "";
+
+			return View(driver);
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult editDriver(Database.Models.Driver driver)
+		{
+			if (ModelState.IsValid)
+			{
+				Database.Models.Driver oldDriver = dbContext.Drivers.Find(driver.DriverId);
+				if (driver.User.password.Length <= 0)
+				{
+					driver.User.password = oldDriver.User.password;
+				}
+
+				dbContext.Entry(driver).State = EntityState.Modified;
+				dbContext.SaveChanges();
+				return RedirectToAction("GetDrivers", "Administrator");
+			}
+
+			return View(driver);
+		}
+
+		[Authorize]
+		public ActionResult DeleteDriver(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Database.Models.Driver driver = dbContext.Drivers.Find(id);
+			if (driver == null)
+			{
+				return HttpNotFound();
+			}
+			dbContext.Drivers.Remove(driver);
+			dbContext.SaveChanges();
+
+			return RedirectToAction("GetDrivers", "Administrator");
+		}
+
+		private string generateDiscountCode()
+		{
+			const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+			return new string(Enumerable.Repeat(chars, 10)
+			  .Select(s => s[random.Next(s.Length)]).ToArray());
+		}
+	}
 	
 }

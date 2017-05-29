@@ -20,6 +20,15 @@ namespace KvieskTaxa.Controllers
             db = new DataModelContext();
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
         public ActionResult Login()
         {
             if (Request.IsAuthenticated)

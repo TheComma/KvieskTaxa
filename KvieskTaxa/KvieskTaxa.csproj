@@ -133,6 +133,8 @@
     <Compile Include="Areas\Administrator\Services\IMailService.cs" />
     <Compile Include="Areas\Administrator\Services\MailService.cs" />
     <Compile Include="Areas\Administrator\Services\NullObjectMailService.cs" />
+    <Compile Include="Areas\Agent\AgentAreaRegistration.cs" />
+    <Compile Include="Areas\Agent\Controllers\AgentController.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
     <Compile Include="Areas\Client\Controllers\ClientController.cs" />
     <Compile Include="Areas\Driver\Controllers\DriverController.cs" />
@@ -172,7 +174,6 @@
     <Content Include="Areas\Driver\Views\Driver\Driver.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\getReviews.cshtml" />
     <Content Include="Areas\Driver\Views\web.config" />
-    <Content Include="Areas\Driver\Views\Driver.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\GetTariffs.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\CreateTariff.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\editTariff.cshtml" />
@@ -186,6 +187,7 @@
     <Content Include="Areas\Administrator\Views\Administrator\editDriver.cshtml" />
     <Content Include="Areas\Administrator\Views\Administrator\editTransportationSettings.cshtml" />
     <Content Include="Areas\Administrator\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Agent\Views\web.config" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -222,6 +224,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Agent\Models\" />
+    <Folder Include="Areas\Agent\Views\Agent\" />
+    <Folder Include="Areas\Agent\Views\Shared\" />
     <Folder Include="Areas\Client\Models\" />
     <Folder Include="Areas\Client\Views\Shared\" />
   </ItemGroup>
