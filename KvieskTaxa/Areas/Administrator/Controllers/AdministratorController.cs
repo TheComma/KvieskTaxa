@@ -274,7 +274,7 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
 			{
 				driver.User.CreateDate = System.DateTime.Now;
 				driver.User.Status = 2;
-				//dbContext.Users.Add(driver.User);
+                driver.State = 1;
 				dbContext.Drivers.Add(driver);
 				dbContext.SaveChanges();
 				return RedirectToAction("GetDrivers", "Administrator");

@@ -54,6 +54,8 @@ namespace KvieskTaxa.Database.Migrations
             context.Reviews.Add(review1);
             context.Reviews.Add(review2);
             context.Reviews.Add(review3);
+
+            context.SaveChanges();
         }
     }
 }
