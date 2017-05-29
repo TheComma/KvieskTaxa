@@ -24,7 +24,7 @@ namespace KvieskTaxa.Areas.Client.Controllers
         [Authorize]
         public ActionResult IssueCall()
         {
-            Call call = dbContext.Calls.Where(c => c.ClientId == User.UserId).FirstOrDefault();
+            Call call = dbContext.Calls.Where(c => c.ClientId == User.UserId && c.State == 1).FirstOrDefault();
             if (call == null)
             {
                 return View();
