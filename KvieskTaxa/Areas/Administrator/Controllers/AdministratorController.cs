@@ -9,6 +9,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net;
+using KvieskTaxa.Services;
 
 namespace KvieskTaxa.Areas.Administrator.Controllers
 {
@@ -17,12 +18,14 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
 		Services.IDiscountMailer DiscountMailer;
 		private DataModelContext dbContext;
 		private static System.Random random = new System.Random();
+        private UserSecurity us;
 
-		public AdministratorController()
+        public AdministratorController()
 		{
 			dbContext = new DataModelContext();
 			DiscountMailer = new Services.DiscountMailer(new Services.MailService(), dbContext);
-		}
+            us = new UserSecurity(dbContext);
+        }
 
 		[Authorize]
 		public ActionResult Index()
@@ -275,7 +278,11 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
 				driver.User.CreateDate = System.DateTime.Now;
 				driver.User.Status = 2;
                 driver.State = 1;
-				dbContext.Drivers.Add(driver);
+                string salt = us.GenerateSaltValue();
+                string password = us.GenerateHashWithSalt(driver.User.password, salt);
+                driver.User.password = password;
+                driver.User.Salt = salt;
+                dbContext.Drivers.Add(driver);
 				dbContext.SaveChanges();
 				return RedirectToAction("GetDrivers", "Administrator");
 			}

@@ -31,6 +31,11 @@ namespace KvieskTaxa.Database.Models
             {
                 yield return new ValidationResult("Galiojimo pabaiga turi būti po galiojimo pradžios");
             }
+
+            if (EntryPrice <= 0 || KilometersPrice <= 0)
+            {
+                yield return new ValidationResult("Tarifas negali būti nulinis");
+            }
         }
     }
 }
