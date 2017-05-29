@@ -1,0 +1,16 @@
+﻿@model KvieskTaxa.Database.Models.Call
+@{
+    ViewBag.Title = "Adminnistratoriaus panelė";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron" align="center">
+    <h1>Taksas Iškviestas!</h1>
+    <p>Jūsų taksi jau keliauja</p>
+    <iframe width="600"
+            height="450"
+            frameborder="0" style="border:0"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBfs-PFFdGpNByBb9L-fvdQImZScJGD-fk
+    &q=Kaunas,Lithuania" allowfullscreen></iframe>
+    @Html.ActionLink("Atšaukti užsakymą", "CancelCall", new { controller = "Client", id = Model.CallId }, new { @class = "btn btn-lg btn-danger btn-block" })
+</div>

@@ -172,5 +172,12 @@ namespace KvieskTaxa.Areas.Driver.Controllers
             return RedirectToAction("Index");
         }
 
+        public void UpdateStatus(int? id)
+        {
+            var driver = dbContext.Drivers.Find(id);
+            driver.State = 0;
+            dbContext.SaveChanges();
+        }
+
     }
 }
