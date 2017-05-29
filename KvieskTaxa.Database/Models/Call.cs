@@ -32,6 +32,7 @@ namespace KvieskTaxa.Database.Models
 
         public DateTime BookTime { get; set; }
 
+        [Range(1, 6)]
         public int Passangers { get; set; }
 
         public bool IsChildSeat { get; set; }

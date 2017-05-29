@@ -1,17 +1,40 @@
 ﻿
 @{
-    Layout = null;
+    ViewBag.Title = "Client Iškvietimas";
+    Layout = "_Layout.cshtml";
 }
+@model KvieskTaxa.Database.Models.Call
 
-<!DOCTYPE html>
+<legend>Taksi Kvietimas</legend>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>IssueCall</title>
-</head>
-<body>
-    <div> 
-    </div>
-</body>
-</html>
+<div align="center" class="issue-call">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <fieldset>
+                @Html.LabelFor(x => x.Passangers, "Keleivių skaičius")
+                @Html.TextBoxFor(x => x.Passangers, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Passangers)
+                <br />
+                @Html.LabelFor(x => x.IsBaggage, "Ar būsite su bagažu?")
+                @Html.CheckBoxFor(x => x.IsBaggage)
+                <br />
+                @Html.LabelFor(x => x.IsAnimals, "Ar turėsite gyvūnų?")
+                @Html.CheckBoxFor(x => x.IsAnimals)
+                <br />
+                @Html.LabelFor(x => x.IsSmoking, "Ar norėsite rūkyti automobilyje?")
+                @Html.CheckBoxFor(x => x.IsSmoking)
+                <br />
+                @Html.LabelFor(x => x.IsChildSeat, "Ar reikės vaiko kėdutės?")
+                @Html.CheckBoxFor(x => x.IsChildSeat)
+                <hr />
+                <br style="line-height: 10px" />
+                <button type="submit" class="btn btn-success btn-block btn-lg">
+                    Kviesti
+                </button>
+            </fieldset>
+        </div>
+    }
+
+</div>

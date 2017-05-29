@@ -1,7 +1,16 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Client Index";
+    Layout = "_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="jumbotron" align="center">
+    <h1>Kviesk Taksą!</h1>
+    <p>Sveiki atvykę į geriausią taksi servisą rinkoje. Ką norėtumėte daryti?</p>
+    <p>
+        @Html.ActionLink("Kviesti Taksi", "IssueCall", new { controller = "Client" }, new { @class = "btn btn-lg btn-primary btn-block" })
+        @Html.ActionLink("Rezervuoti Taksi", "IssueCall", new { controller = "Client" }, new { @class = "btn btn-lg btn-info btn-block" })
+        @Html.ActionLink("Užsakymų istorija", "IssueCall", new { controller = "Client" }, new { @class = "btn btn-lg btn-default btn-block" })
+    </p>
+</div>
 
