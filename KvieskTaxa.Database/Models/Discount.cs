@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace KvieskTaxa.Database.Models
 {
-    public class Discount
+    public class Discount: IValidatableObject
     {
 		#region Properties
 
@@ -23,6 +23,14 @@ namespace KvieskTaxa.Database.Models
 
         public ICollection<DiscountCode> DiscountCodes { get; set; }
 
-		#endregion
-	}
+        #endregion
+
+        public System.Collections.Generic.IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (ValidFrom >= ValidTo)
+            {
+                yield return new ValidationResult("Galiojimo pabaiga turi būti po galiojimo pradžios");
+            }
+        }
+    }
 }
