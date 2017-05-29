@@ -306,12 +306,6 @@ namespace KvieskTaxa.Areas.Administrator.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				Database.Models.Driver oldDriver = dbContext.Drivers.Find(driver.DriverId);
-				if (driver.User.password.Length <= 0)
-				{
-					driver.User.password = oldDriver.User.password;
-				}
-
 				dbContext.Entry(driver).State = EntityState.Modified;
 				dbContext.SaveChanges();
 				return RedirectToAction("GetDrivers", "Administrator");
