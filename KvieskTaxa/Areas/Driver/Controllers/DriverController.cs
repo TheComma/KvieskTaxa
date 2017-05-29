@@ -27,6 +27,7 @@ namespace KvieskTaxa.Areas.Driver.Controllers
             model.Drivers = dbContext.Drivers.ToList();
             var driver = dbContext.Drivers.SingleOrDefault(d => d.DriverId == User.UserId);
             ViewBag.driverState = driver.State;
+            ViewBag.driverId = driver.DriverId;
             //return View(model);
             return View(model);
         }
@@ -121,7 +122,7 @@ namespace KvieskTaxa.Areas.Driver.Controllers
                 driver.State = stateId;
                 dbContext.SaveChanges();
             }
-            // truksta atsaukimo
+            // atsaukimas
             return RedirectToAction("Index");
         }
 
@@ -157,9 +158,18 @@ namespace KvieskTaxa.Areas.Driver.Controllers
         }
 
 
-        public void receiveCall()
+        public ActionResult receiveCall()
         {
-
+            /*
+            function updateTable()
+            {
+                location.reload();
+            }
+            $(document).ready(function(){
+                setInterval('updateTable', 5000);
+            });
+            */
+            return RedirectToAction("Index");
         }
 
     }
