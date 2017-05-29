@@ -13,8 +13,11 @@ namespace KvieskTaxa.Database.Models
 		[StringLength(20)]
         public string username { get; set; }
 
-		[StringLength(20)]
+		[StringLength(50)]
 		public string password { get; set; }
+
+        [StringLength(50)]
+        public string Salt { get; set; }
 
         public DateTime CreateDate { get; set; }
 

@@ -9,9 +9,6 @@ namespace KvieskTaxa.Models
 {
     public class ChangePasswordModel
     {
-        [HiddenInput]
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "Būtina įvesti vartotojo slaptažodį")]
         [DataType(DataType.Password)]
         public string OldPassword { get; set; }

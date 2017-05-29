@@ -70,6 +70,18 @@
     <Compile Include="Migrations\201705290845366_Driver Update.Designer.cs">
       <DependentUpon>201705290845366_Driver Update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705291817178_User Update1.cs" />
+    <Compile Include="Migrations\201705291817178_User Update1.Designer.cs">
+      <DependentUpon>201705291817178_User Update1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705291820410_User Edit2.cs" />
+    <Compile Include="Migrations\201705291820410_User Edit2.Designer.cs">
+      <DependentUpon>201705291820410_User Edit2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705291948332_Call Edit2.cs" />
+    <Compile Include="Migrations\201705291948332_Call Edit2.Designer.cs">
+      <DependentUpon>201705291948332_Call Edit2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Call.cs" />
@@ -102,6 +114,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705290845366_Driver Update.resx">
       <DependentUpon>201705290845366_Driver Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705291817178_User Update1.resx">
+      <DependentUpon>201705291817178_User Update1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705291820410_User Edit2.resx">
+      <DependentUpon>201705291820410_User Edit2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705291948332_Call Edit2.resx">
+      <DependentUpon>201705291948332_Call Edit2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
