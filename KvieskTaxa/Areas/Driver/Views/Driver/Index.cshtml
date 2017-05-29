@@ -3,7 +3,26 @@
     ViewBag.Title = "Iškvietimų sąrašas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<button type="button" style="float: right;" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Būsenos keitimas</button>
+@{
+    var driverState = (string)ViewBag.DriverState.ToString();
+
+    switch (driverState)
+    {
+        case "2":
+            driverState = "Stovi";
+            break;
+        case "3":
+            driverState = "Važiuoja paimti keleivių";
+            break;
+        case "4":
+            driverState = "Veža keleivius";
+            break;
+        default:
+            driverState = "Nedirba";
+            break;
+    }
+}
+<button type="button" style="float: right;" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">@driverState</button>
 
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -50,12 +69,49 @@
 
     @foreach (var item in Model.Calls)
     {
+        var callState = (string) @Html.DisplayFor(modelItem => item.State).ToString();
+        if (callState == "0")
+            callState = "Naujas";
+        if (callState == "1")
+            callState = "Paskirtas";
+        if (callState == "2")
+            callState = "Priimtas";
+        if (callState == "3")
+            callState = "Vykdomas";
+        if (callState == "4")
+            callState = "Atšauktas";
+        if (callState == "5")
+            callState = "Užbaigtas";
+        /*
+         * compilation error :O
+        switch (callState)
+        {
+            case "0":
+                callState = "Naujas";
+                break;
+            case "1":
+                callState = "Paskirtas";
+                break;
+            case "2":
+                callState = "Priimtas";
+                break;
+            case "3":
+                callState = "Vykdomas";
+                break;
+            case "4":
+                callState = "Atšauktas";
+                break;
+            default:
+                callState = "Užbaigtas";
+                break;
+        }*/
+
         <tr style="cursor: pointer;" onclick="window.location='Driver/openCallInfo/'+ @Html.DisplayFor(modelItem => item.CallId)">
             <td>
                 @Html.DisplayFor(modelItem => item.Client.User.username)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.State)
+                @callState
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Distance)
@@ -68,7 +124,6 @@
             </td>
         </tr>
     }
-
 </table>
 
 
