@@ -12,9 +12,13 @@ namespace KvieskTaxa.Database.Models
 
         public string PickUpCordinates { get; set; }
 
-        public string PickUpLocation { get; set; }
+        public string PickUpLongitude { get; set; }
 
-        public string DropByCordinates { get; set; }
+        public string PickUpLatitude { get; set; }
+
+        public string DropByLongitude { get; set; }
+
+        public string DropByLatitude { get; set; }
 
         public string DropByLocation { get; set; }
 
