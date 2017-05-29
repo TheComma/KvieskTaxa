@@ -149,6 +149,8 @@
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\UserWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IUserSecurity.cs" />
+    <Compile Include="Services\UserSecurity.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

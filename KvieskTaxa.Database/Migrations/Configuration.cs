@@ -1,4 +1,4 @@
-namespace KvieskTaxa.Database.Migrations
+﻿namespace KvieskTaxa.Database.Migrations
 {
     using System.Data.Entity.Migrations;
     using KvieskTaxa.Database.Models;
@@ -31,9 +31,9 @@ namespace KvieskTaxa.Database.Migrations
 
         private void AddUser(DataModelContext context)
         {
-            User admin = new User() { UserId = 1, username = "admin", password = "admin", Status = 1, CreateDate = DateTime.Now };
-            User driver = new User() { UserId = 2, username = "driver", password = "driver", Status = 2, CreateDate = DateTime.Now };
-            User client = new User() { UserId = 3, username = "client", password = "client", Status = 3, CreateDate = DateTime.Now };
+            User admin = new User() { UserId = 1, username = "admin", password = "M3kLpOzmnzMG/eZ/nUMVZT2MIgSr2U1dcFSLUJpSVbM=", Salt = "ಯअ䎦袃핢沊ې峭꿌䓱ᥦ秶�皬垂", Status = 1, CreateDate = DateTime.Now };
+            User driver = new User() { UserId = 2, username = "driver", password = "pF/TWgcUOioI0kh9VvRRLzOaFLpumO39X4DODv7L9Zw=", Salt = "ಯअ䎦袃핢沊ې峭꿌䓱ᥦ秶�皬垂", Status = 2, CreateDate = DateTime.Now };
+            User client = new User() { UserId = 3, username = "client", password = "EGL5RpZFjMEWbrkVeHgiZfYE5Zi16AS4imKjwGnE+u8=", Salt = "ಯअ䎦袃핢沊ې峭꿌䓱ᥦ秶�皬垂", Status = 3, CreateDate = DateTime.Now };
             Administrator admindata = new Administrator() { AdministratorId = 1, Email = "admin@admin.lt" };
             Driver driverdata = new Driver() { DriverId = 2, IsAnimals = true, IsChildSeat = true, IsSmoking = true, Name = "test", Seats = 5, State = 1 };
             Client clientdata = new Client() { ClientId = 3, Email = "client@client.lt" };
@@ -54,6 +54,8 @@ namespace KvieskTaxa.Database.Migrations
             context.Reviews.Add(review1);
             context.Reviews.Add(review2);
             context.Reviews.Add(review3);
+
+            context.SaveChanges();
         }
     }
 }

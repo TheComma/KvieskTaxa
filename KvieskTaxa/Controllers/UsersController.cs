@@ -8,16 +8,19 @@ using KvieskTaxa.Controllers.Base;
 using System.Web.Script.Serialization;
 using System;
 using System.Web;
+using KvieskTaxa.Services;
 
 namespace KvieskTaxa.Controllers
 {
     public class UsersController : BaseController
     {
         private DataModelContext db;
+        private UserSecurity us;
 
         public UsersController()
         {
             db = new DataModelContext();
+            us = new UserSecurity(db);
         }
 
         protected override void Dispose(bool disposing)
@@ -33,32 +36,39 @@ namespace KvieskTaxa.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Administrator", new { area = "Administrator" });
+                if (User.Status == 1)
+                {
+                    return RedirectToAction("Index", "Administrator", new { area = "Administrator" });
+                }
+                else if (User.Status == 2)
+                {
+                    return RedirectToAction("Index", "Driver", new { area = "Driver" });
+                }
+                else if (User.Status == 3)
+                {
+                    return RedirectToAction("Index", "Client", new { area = "Client" });
+                }
             }
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(User model)
         {
             if (ModelState.IsValid)
             {
-                User user = db.Users.FirstOrDefault(x => x.username == model.username);
-                if(user != null)
-                {
-                    if (user.password == model.password)
+                    var user = us.ValidateLogin(model.username, model.password);
+                    if (user != null)
                     {
                         AuthenticationData(user);
-                        if (user.Administrator != null)
+                        if (user.Status == 1)
                             return RedirectToAction("Index", "Administrator", new { area = "Administrator" });
-                        else if(user.Driver != null)
+                        else if(user.Status == 2)
                             return RedirectToAction("Index", "Driver", new { area = "Driver" });
-                        else if(user.Client != null)
+                        else if(user.Status == 3)
                             return RedirectToAction("Index", "Client", new { area = "Client" });
                     }
-                    ModelState.AddModelError("", "Neteisingi prisijungimo duomenys");
-                    return View(model);
-                }
                 ModelState.AddModelError("", "Neteisingi prisijungimo duomenys");
                 return View(model);
             }
@@ -88,11 +98,16 @@ namespace KvieskTaxa.Controllers
                 User user = db.Users.FirstOrDefault(x => x.username == User.Username);
                 if (user != null)
                 {
-                    if (user.password == model.OldPassword)
+                    if (user.password == us.GenerateHashWithSalt(model.OldPassword,user.Salt))
                     {
-                        user.password = model.ConfirmPassword;
+                        string salt = us.GenerateSaltValue();
+                        string password = us.GenerateHashWithSalt(model.ConfirmPassword, salt);
+                        user.password = password;
+                        user.Salt = salt;
+
                         db.Entry(user).State = System.Data.Entity.EntityState.Modified;
                         db.SaveChanges();
+
                         return RedirectToAction("Logout");
                     }
                     else
