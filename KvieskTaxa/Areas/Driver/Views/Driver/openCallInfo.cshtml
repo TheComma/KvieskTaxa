@@ -2,6 +2,20 @@
 @{
     ViewBag.Title = "Iškvietimo informacija";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var callState = (string)@Model.State.ToString();
+    if (callState == "0")
+        callState = "Naujas";
+    if (callState == "1")
+        callState = "Paskirtas";
+    if (callState == "2")
+        callState = "Priimtas";
+    if (callState == "3")
+        callState = "Vykdomas";
+    if (callState == "4")
+        callState = "Atšauktas";
+    if (callState == "5")
+        callState = "Užbaigtas";
 }
 
 <h2>Iškvietimo informacija</h2>
@@ -28,15 +42,15 @@
 }
 @if (@Model.Distance != null)
 {
-    <p>Kelionės atstumas: @Model.Distance</p>
+    <p>Kelionės atstumas(km): @Model.Distance</p>
 }
-@if (@Model.State != null)
+@if (callState != null)
 {
-    <p>Būsena: @Model.State</p>
+    <p>Būsena: @callState</p>
 }
 @if (@Model.EstimatedPrice != null)
 {
-    <p>Numatoma kaina: @Model.EstimatedPrice</p>
+    <p>Numatoma kaina(eu): @Model.EstimatedPrice</p>
 }
 @if (@Model.SendTime != null)
 {
@@ -80,7 +94,12 @@
 }
 
 <div >
-    @Html.ActionLink("Priimti iškvietimą", "acceptCall", new { controller = "Driver", area = "Driver", id = Model.CallId}, new { @class = "btn btn-info" })
+    @{ 
+        if (Model.State < 2)
+        {
+            @Html.ActionLink("Priimti iškvietimą", "acceptCall", new { controller = "Driver", area = "Driver", id = Model.CallId }, new { @class = "btn btn-info" })
+        }
+    }
 </div>
 <br>
 
